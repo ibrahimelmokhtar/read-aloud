@@ -1,10 +1,10 @@
 from fileToSpeech import *
 
-textFile = "text-file.txt"
+pdfFile = "pdf-file.pdf"
 audioFile = "audio.mp3"
 
-# convert text to speech:
-convertTextToSpeech(textFile, audioFile)
+# convert pdf to text:
+convertPDFToSpeech(pdfFile, audioFile)
 
 # play obtained speech:
 os.system(audioFile)

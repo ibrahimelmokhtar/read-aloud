@@ -1,5 +1,6 @@
-from gtts import gTTS       # required to convert text-to-speech
-import os                   # required to play audio file
+from gtts import gTTS       # convert text-to-speech
+import PyPDF2               # convert pdf-to-text
+import os                   # play audio file
 
 
 def convertTextToSpeech(textFile, audioFile):
@@ -10,3 +11,24 @@ def convertTextToSpeech(textFile, audioFile):
 
     obj = gTTS(text=fullText)
     obj.save(audioFile)
+
+
+def convertPDFToSpeech(pdfFile, audioFile):
+    # extract text from pdf file:
+    fullText = ""
+    with open(pdfFile, 'rb') as file:
+        pdfReader = PyPDF2.PdfFileReader(file)
+        for pageNumber in range(pdfReader.getNumPages()):
+            page = pdfReader.getPage(pageNumber)
+            fullText = f"{fullText} {page.extractText()}"
+
+    # save text into a dummy text file:
+    textFile = 'dummy-text.txt'
+    with open(textFile, 'w') as file:
+        file.write(fullText)
+
+    # convert dummy text file into audio file:
+    convertTextToSpeech(textFile, audioFile)
+
+    # remove created dummy files:
+    os.remove(textFile)
