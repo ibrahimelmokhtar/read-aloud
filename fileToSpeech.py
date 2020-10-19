@@ -3,17 +3,17 @@ import PyPDF2               # convert pdf-to-text
 import os                   # play audio file
 
 
-def convertTextToSpeech(textFile, audioFile):
+def convertTextToSpeech(textFile, audioFile, language):
     fullText = ""
     with open(textFile, 'r') as file:
         for line in file.readlines():
             fullText = f"{fullText} {line.strip()}"     # read all the text from the file
 
-    obj = gTTS(text=fullText)
+    obj = gTTS(text=fullText, lang=language)
     obj.save(audioFile)
 
 
-def convertPDFToSpeech(pdfFile, audioFile):
+def convertPDFToSpeech(pdfFile, audioFile, language):
     # extract text from pdf file:
     fullText = ""
     with open(pdfFile, 'rb') as file:
@@ -28,7 +28,7 @@ def convertPDFToSpeech(pdfFile, audioFile):
         file.write(fullText)
 
     # convert dummy text file into audio file:
-    convertTextToSpeech(textFile, audioFile)
+    convertTextToSpeech(textFile, audioFile, language)
 
     # remove created dummy files:
     os.remove(textFile)

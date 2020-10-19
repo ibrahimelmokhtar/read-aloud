@@ -26,7 +26,7 @@ def tryMovingFile(fileName, directoryName):
     try:
         shutil.move(fileName, directoryName)
     except:
-        print("*** can NOT move that file: File already exists ***")
+        pass
 
 # remove file extension
 def removeFileExtension(fileName):
