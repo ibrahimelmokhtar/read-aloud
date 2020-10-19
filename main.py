@@ -2,7 +2,7 @@ from fileToSpeech import *
 from requiredDirectories import *
 
 
-fileName = "hello-in-EnglishAccent.txt"
+fileName = "pdf-file.pdf"
 
 print("languages:\t1. 'english'\t2. 'arabic'")
 language = 'en-us'      # default language
