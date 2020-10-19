@@ -1,5 +1,7 @@
 from gtts import gTTS       # convert text-to-speech
 import PyPDF2               # convert pdf-to-text
+from PIL import Image       # process images
+import pytesseract          # convert image to text
 import os                   # play audio file
 
 
@@ -21,6 +23,24 @@ def convertPDFToSpeech(pdfFile, audioFile, language):
         for pageNumber in range(pdfReader.getNumPages()):
             page = pdfReader.getPage(pageNumber)
             fullText = f"{fullText} {page.extractText()}"
+
+    # save text into a dummy text file:
+    textFile = 'dummy-text.txt'
+    with open(textFile, 'w') as file:
+        file.write(fullText)
+
+    # convert dummy text file into audio file:
+    convertTextToSpeech(textFile, audioFile, language)
+
+    # remove created dummy files:
+    os.remove(textFile)
+
+
+def convertImageToSpeech(jpgFile, audioFile, language, tesseractPath):
+    pytesseract.pytesseract.tesseract_cmd = tesseractPath
+
+    img = Image.open(jpgFile)
+    fullText = pytesseract.image_to_string(img)
 
     # save text into a dummy text file:
     textFile = 'dummy-text.txt'

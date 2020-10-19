@@ -2,7 +2,7 @@ from fileToSpeech import *
 from requiredDirectories import *
 
 
-fileName = "pdf-file.pdf"
+fileName = "image-message.jpg"
 
 print("languages:\t1. 'english'\t2. 'arabic'")
 language = 'en-us'      # default language
@@ -29,6 +29,10 @@ if extension == '.txt':
 
 elif extension == '.pdf':
     convertPDFToSpeech(inputFile, audioFile, language)
+
+elif extension == '.jpg':
+    tesseractPath = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+    convertImageToSpeech(inputFile, audioFile, language, tesseractPath)
 
 else:
     print("Not a valid input format ...")
